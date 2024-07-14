@@ -1,31 +1,11 @@
-import { Text, View, Pressable } from "react-native";
+import * as React from "react";
+import { View } from "react-native";
+import { Text } from "~/components/ui/text";
 
-export default function Index() {
-  function onPressFunction () {
-    console.log("Jeh")
-  }
+export default function Screen() {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text>Control de gastos</Text>
-      <Pressable onPressIn={onPressFunction}
-      style={{
-        top:20,
-        borderRadius: 10 ,
-        backgroundColor: "black",
-        justifyContent: "center",
-        alignItems: "center",
-        width: 100,
-        height: 50,
-      }}
-      >
-        <Text style={{fontSize:30, color: "white"}}>+</Text>
-      </Pressable>
+    <View className="flex-1 justify-center items-center gap-5 p-6 bg-secondary/30">
+      <Text className="text-5xl">Control de Gastos</Text>
     </View>
   );
 }
