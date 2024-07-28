@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState } from "react";
 import { View } from "react-native";
 import { Text } from "~/components/ui/text";
 import { Button } from "~/components/ui/button";
@@ -11,18 +11,19 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
+import { FlatList } from "react-native";
+import { Expense } from "~/types";
 
 export default function Screen() {
-  let expense = 0;
+  const [expenses, setExpenses] = useState<Expense[]>([]);
 
-  function addExpenses() {
-    expense += 1;
-    console.log(expense);
+  function addExpenses(expense: Expense) {
+    const newExspenses = [...expenses, expense];
+    setExpenses(newExspenses);
   }
 
   const balance = 453324;
   const initialBudget = 450000;
-  const expenses = 3324;
 
   const formatCurrency = (value: number) => {
     return value.toLocaleString("es-CL", {
@@ -32,7 +33,7 @@ export default function Screen() {
   };
 
   return (
-    <View className="p-6 bg-secondary/30">
+    <View className="flex-1 p-6">
       <Card>
         <CardHeader>
           <CardTitle className="text-center">Balance</CardTitle>
@@ -47,17 +48,32 @@ export default function Screen() {
           </View>
           <View>
             <Text className="font-bold">Gastos Realizados</Text>
-            <Text className="">{formatCurrency(expenses)}</Text>
+            <Text className="">{formatCurrency(43434)}</Text>
           </View>
         </CardFooter>
       </Card>
-      <View style={{ top: 250, width: 200 }}>
+      <FlatList
+        data={expenses}
+        renderItem={({ item }) => (
+          <View>
+            <Text>{item.amount}</Text>
+            <Text>{item.category}</Text>
+          </View>
+        )}
+      ></FlatList>
+      <View className="absolute bottom-0 right-0">
         <Button
           className="mt-auto"
           style={{ borderRadius: 20 }}
           variant="outline"
           size="lg"
-          onPress={addExpenses}
+          onPress={() =>
+            addExpenses({
+              id: new Date().getTime().toString(),
+              amount: 1000,
+              category: "food",
+            })
+          }
         >
           <Text>
             <BadgePlus color="black" size={15} />
