@@ -144,17 +144,10 @@ export function Calculator({
           <Button
             key={button.label}
             className="w-1/4"
-            variant={activeOperator === button.label ? "default" : "outline"}
+            variant="outline"
             onPress={() => onButtonPress(button)}
           >
-            <Text
-              className={cn(
-                "text-center text-xl",
-                activeOperator === button.label && "text-white"
-              )}
-            >
-              {button.label}
-            </Text>
+            <Text>{button.label}</Text>
           </Button>
         ))}
       </View>

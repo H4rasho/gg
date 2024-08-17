@@ -1,38 +1,37 @@
-import {useState} from 'react'
-import {View} from 'react-native'
-import {Text} from '~/components/ui/text'
-import {Button} from '~/components/ui/button'
-import {BadgePlus} from '~/lib/icons/BadgePlus'
-import {H1} from '~/components/ui/typography'
+import { useState } from "react";
+import { View } from "react-native";
+import { Text } from "~/components/ui/text";
+import { Button } from "~/components/ui/button";
+import { BadgePlus } from "~/lib/icons/BadgePlus";
+import { H1 } from "~/components/ui/typography";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from '~/components/ui/card'
-import {FlatList} from 'react-native'
-import {Expense} from '~/types'
-import {AddExpenseForm} from '~/components/AddExpenseForm'
-import {SafeAreaView} from 'react-native-safe-area-context'
+} from "~/components/ui/card";
+import { FlatList } from "react-native";
+import { Expense } from "~/types";
+import { AddExpenseForm } from "~/components/AddExpenseForm";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Screen() {
-  const [expenses, setExpenses] = useState<Expense[]>([])
+  const [expenses, setExpenses] = useState<Expense[]>([]);
 
-  function addExpenses(expense: Expense) {
-    const newExspenses = [...expenses, expense]
-    setExpenses([])
-  }
-
-  const balance = 453324
-  const initialBudget = 450000
+  const balance = 453324;
+  const initialBudget = 450000;
 
   const formatCurrency = (value: number) => {
-    return value.toLocaleString('es-CL', {
-      style: 'currency',
-      currency: 'CLP',
-    })
-  }
+    return value.toLocaleString("es-CL", {
+      style: "currency",
+      currency: "CLP",
+    });
+  };
+
+  const onExpenseAdd = (expense: Expense) => {
+    setExpenses([...expenses, expense]);
+  };
 
   return (
     <SafeAreaView>
@@ -57,7 +56,7 @@ export default function Screen() {
         </Card>
         <FlatList
           data={expenses}
-          renderItem={({item}) => (
+          renderItem={({ item }) => (
             <View>
               <Text>{item.amount}</Text>
               <Text>{item.category}</Text>
@@ -66,9 +65,9 @@ export default function Screen() {
         ></FlatList>
 
         <View className="absolute bottom-8 right-0">
-          <AddExpenseForm />
+          <AddExpenseForm onSubmit={onExpenseAdd} />
         </View>
       </View>
     </SafeAreaView>
-  )
+  );
 }
