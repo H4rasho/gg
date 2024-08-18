@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { View } from "react-native";
 import { Text } from "~/components/ui/text";
-import { Button } from "~/components/ui/button";
-import { BadgePlus } from "~/lib/icons/BadgePlus";
 import { H1 } from "~/components/ui/typography";
 import {
   Card,
@@ -15,6 +13,12 @@ import { FlatList } from "react-native";
 import { Expense } from "~/types";
 import { AddExpenseForm } from "~/components/AddExpenseForm";
 import { SafeAreaView } from "react-native-safe-area-context";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '~/components/ui/accordion';
 
 export default function Screen() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
@@ -64,7 +68,34 @@ export default function Screen() {
           )}
         ></FlatList>
 
-        <View className="absolute bottom-8 right-0">
+    {/* <Accordion
+        type='multiple'
+        collapsible
+        defaultValue={['item-1']}
+        className='w-full max-w-sm native:max-w-md'
+      >
+        <AccordionItem value='item-1'>
+          <AccordionTrigger>
+            <Text>Is it accessible?</Text>
+          </AccordionTrigger>
+          <AccordionContent>
+            <Text>Yes. It adheres to the WAI-ARIA design pattern.</Text>
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value='item-2'>
+          <AccordionTrigger>
+            <Text>What are universal components?</Text>
+          </AccordionTrigger>
+          <AccordionContent>
+            <Text>
+              In the world of React Native, universal components are components that work on both
+              web and native platforms.
+            </Text>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion> */}
+
+        <View className="absolute bottom-8 right-1">
           <AddExpenseForm onSubmit={onExpenseAdd} />
         </View>
       </View>

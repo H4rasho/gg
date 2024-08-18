@@ -1,4 +1,5 @@
 import { Button } from "~/components/ui/button";
+import { Plus } from "~/lib/icons/Plus";
 import {
   Dialog,
   DialogClose,
@@ -27,8 +28,8 @@ export function AddExpenseForm({
     <SafeAreaView>
       <Dialog>
         <DialogTrigger asChild>
-          <Button>
-            <Text className="text-white">Agregar Gasto</Text>
+          <Button className="rounded-full" size="lg">
+            <Plus className="text-white"></Plus>
           </Button>
         </DialogTrigger>
         <DialogContent className="flex mx-2 my-6 px-7 sm:max-w-[325px]">
