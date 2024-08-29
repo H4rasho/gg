@@ -1,4 +1,5 @@
 import { Button } from "~/components/ui/button";
+import { useColorScheme } from "nativewind";
 import { Plus } from "~/lib/icons/Plus";
 import {
   Dialog,
@@ -17,6 +18,7 @@ import { ExpenseCategorySelect } from "./ExpenseCategorySelect";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Option } from "@rn-primitives/select";
 import { Category } from "~/types";
+import { cn } from "~/lib/utils";
 
 export function AddExpenseForm({
   onSubmit,
@@ -25,6 +27,7 @@ export function AddExpenseForm({
   onSubmit: (expense: any) => void;
   categories: Category[];
 }) {
+  const { colorScheme } = useColorScheme();
   const [displayValue, setDisplayValue] = useState("0");
   const [category, setCategory] = useState<Option>();
   const categoryOptions = categories.map((category) => ({
@@ -37,7 +40,12 @@ export function AddExpenseForm({
       <Dialog>
         <DialogTrigger asChild>
           <Button className="rounded-full" size="lg">
-            <Plus className="text-white"></Plus>
+            <Plus
+              className={cn(
+                "text-white",
+                colorScheme === "dark" && "text-black"
+              )}
+            ></Plus>
           </Button>
         </DialogTrigger>
         <DialogContent className="flex mx-2 my-6 px-7 sm:max-w-[325px]">

@@ -1,7 +1,7 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View } from "react-native";
 import { Button } from "./ui/button";
+import { Text } from "./ui/text";
 import { useState } from "react";
-import { cn } from "lib/utils";
 
 export interface CalculatorButton {
   label: string;
@@ -135,7 +135,7 @@ export function Calculator({
   };
 
   return (
-    <View className="bg-white">
+    <View className="">
       <View className="py-8">
         <Text className="text-right text-2xl">{displayValue}</Text>
       </View>

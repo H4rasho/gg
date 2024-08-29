@@ -44,7 +44,7 @@ export default function Screen() {
       .catch((err) => {
         console.error(err);
       });
-  });
+  }, []);
 
   const balance = 453324;
   const initialBudget = 450000;
