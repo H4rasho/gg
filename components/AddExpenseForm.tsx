@@ -1,3 +1,4 @@
+import { Pressable } from "react-native";
 import { Button } from "~/components/ui/button";
 import { useColorScheme } from "nativewind";
 import { Plus } from "~/lib/icons/Plus";
@@ -35,20 +36,17 @@ export function AddExpenseForm({
     value: category.id.toString(),
   }));
 
+  console.log({ colorScheme });
+
   return (
     <SafeAreaView>
       <Dialog>
         <DialogTrigger asChild>
-          <Button className="rounded-full" size="lg">
-            <Plus
-              className={cn(
-                "text-white",
-                colorScheme === "dark" && "text-black"
-              )}
-            ></Plus>
-          </Button>
+          <Pressable className="bg-black justify-center items-center size-20 rounded-full dark:bg-[#fff] ">
+            <Plus size={40} className="text-white dark:text-black"></Plus>
+          </Pressable>
         </DialogTrigger>
-        <DialogContent className="flex mx-2 my-6 px-7 sm:max-w-[325px]">
+        <DialogContent className="flex mx-2 my-14 px-7 sm:max-w-[325px]">
           <DialogHeader className="flex-1">
             <DialogTitle>Agregar gasto</DialogTitle>
             <DialogDescription>

@@ -118,7 +118,7 @@ export default function Screen() {
         </AccordionItem>
       </Accordion> */}
 
-        <View className="absolute bottom-8 right-1 z-20">
+        <View className="absolute bottom-16 right-4 z-20">
           <AddExpenseForm onSubmit={onExpenseAdd} categories={categories} />
         </View>
       </View>
