@@ -4,4 +4,8 @@ export interface Expense {
   category: Category;
 }
 
-export type Category = "food" | "transport" | "entertainment" | "other";
+export interface Category {
+  id: number;
+  name: string;
+  description?: string;
+}

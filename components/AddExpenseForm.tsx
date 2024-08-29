@@ -16,14 +16,22 @@ import { useState } from "react";
 import { ExpenseCategorySelect } from "./ExpenseCategorySelect";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Option } from "@rn-primitives/select";
+import { Category } from "~/types";
 
 export function AddExpenseForm({
   onSubmit,
+  categories,
 }: {
   onSubmit: (expense: any) => void;
+  categories: Category[];
 }) {
   const [displayValue, setDisplayValue] = useState("0");
   const [category, setCategory] = useState<Option>();
+  const categoryOptions = categories.map((category) => ({
+    label: category.name,
+    value: category.id.toString(),
+  }));
+
   return (
     <SafeAreaView>
       <Dialog>
@@ -44,7 +52,11 @@ export function AddExpenseForm({
             displayValue={displayValue}
             setDisplayValue={setDisplayValue}
           />
-          <ExpenseCategorySelect value={category} onChange={setCategory} />
+          <ExpenseCategorySelect
+            value={category}
+            onChange={setCategory}
+            categoryOptions={categoryOptions}
+          />
           <DialogFooter>
             <DialogClose asChild>
               <Button variant="outline">

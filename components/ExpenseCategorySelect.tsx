@@ -11,14 +11,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
-import { EXPENSE_CATEGORIES } from "~/lib/constants";
 
 interface ExpenseCategorySelectProps {
+  categoryOptions: { label: string; value: string }[];
   value: Option;
   onChange: (value: Option) => void;
 }
 
 export function ExpenseCategorySelect({
+  categoryOptions = [],
   value,
   onChange,
 }: ExpenseCategorySelectProps) {
@@ -31,6 +32,10 @@ export function ExpenseCategorySelect({
     left: 16,
     right: 16,
   };
+
+  if (!categoryOptions.length) {
+    return;
+  }
 
   return (
     <View className="z-10" {...rootProps}>
@@ -51,11 +56,11 @@ export function ExpenseCategorySelect({
         >
           <SelectGroup>
             <SelectLabel>Categoría</SelectLabel>
-            {EXPENSE_CATEGORIES.map((category) => (
-              <ScrollView key={category.id}>
+            {categoryOptions.map((category) => (
+              <ScrollView key={category.value}>
                 <SelectItem
-                  label={category.name}
-                  value={category.id}
+                  label={category.label}
+                  value={category.value}
                 ></SelectItem>
               </ScrollView>
             ))}

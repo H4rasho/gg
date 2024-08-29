@@ -11,6 +11,8 @@ import { NAV_THEME } from "~/lib/constants";
 import { useColorScheme } from "~/lib/useColorScheme";
 import { PortalHost } from "@rn-primitives/portal";
 import { ThemeToggle } from "~/components/ThemeToggle";
+import { SQLiteProvider } from "expo-sqlite";
+import { migrateDbIfNeeded } from "db/init";
 
 const LIGHT_THEME: Theme = {
   dark: false,
@@ -65,17 +67,19 @@ export default function RootLayout() {
   return (
     <SafeAreaProvider>
       <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
-        <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
-        <Stack>
-          <Stack.Screen
-            name="index"
-            options={{
-              headerRight: () => <ThemeToggle />,
-              header: () => null,
-            }}
-          />
-        </Stack>
-        <PortalHost />
+        <SQLiteProvider databaseName="test.db" onInit={migrateDbIfNeeded}>
+          <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
+          <Stack>
+            <Stack.Screen
+              name="index"
+              options={{
+                headerRight: () => <ThemeToggle />,
+                header: () => null,
+              }}
+            />
+          </Stack>
+          <PortalHost />
+        </SQLiteProvider>
       </ThemeProvider>
     </SafeAreaProvider>
   );

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { View } from "react-native";
 import { Text } from "~/components/ui/text";
 import { H1 } from "~/components/ui/typography";
@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 import { FlatList } from "react-native";
-import { Expense } from "~/types";
+import { Category, Expense } from "~/types";
 import { AddExpenseForm } from "~/components/AddExpenseForm";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
@@ -18,10 +18,33 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '~/components/ui/accordion';
+} from "~/components/ui/accordion";
+import { useSQLiteContext } from "expo-sqlite";
 
 export default function Screen() {
+  const db = useSQLiteContext();
   const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  useEffect(() => {
+    db.getAllAsync("SELECT * FROM expenses")
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
+
+  useEffect(() => {
+    db.getAllAsync<Category>("SELECT * FROM expense_categories")
+      .then((categoriesResult) => {
+        setCategories(categoriesResult);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  });
 
   const balance = 453324;
   const initialBudget = 450000;
@@ -63,12 +86,12 @@ export default function Screen() {
           renderItem={({ item }) => (
             <View>
               <Text>{item.amount}</Text>
-              <Text>{item.category}</Text>
+              <Text>{item.category.name}</Text>
             </View>
           )}
         ></FlatList>
 
-    {/* <Accordion
+        {/* <Accordion
         type='multiple'
         collapsible
         defaultValue={['item-1']}
@@ -95,8 +118,8 @@ export default function Screen() {
         </AccordionItem>
       </Accordion> */}
 
-        <View className="absolute bottom-8 right-1">
-          <AddExpenseForm onSubmit={onExpenseAdd} />
+        <View className="absolute bottom-8 right-1 z-20">
+          <AddExpenseForm onSubmit={onExpenseAdd} categories={categories} />
         </View>
       </View>
     </SafeAreaView>
