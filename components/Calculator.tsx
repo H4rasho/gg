@@ -1,20 +1,25 @@
 import { View } from "react-native";
 import { Button } from "./ui/button";
 import { Text } from "./ui/text";
-import { useCalculator } from "~/hooks/useCalculator";
 import { CALCULATOR_BUTTONS } from "~/constants/CalculatorButtons";
+import { useCalculator } from "~/hooks/useCalculator";
 
-export function Calculator({
-  displayValue,
-  onButtonPress,
-}: {
+interface CalculatorProps {
   displayValue: string;
-  onButtonPress: any;
-}) {
+  setDisplayValue: any;
+}
+
+export function Calculator({ displayValue, setDisplayValue }: CalculatorProps) {
+  const { onButtonPress } = useCalculator(displayValue, setDisplayValue);
   return (
     <View className="">
       <View className="py-8">
-        <Text className="text-right text-2xl">{displayValue}</Text>
+        <Text className="text-right text-2xl">
+          {Number(displayValue).toLocaleString("es-CL", {
+            style: "currency",
+            currency: "CLP",
+          })}
+        </Text>
       </View>
       <View className="flex flex-row flex-wrap w-full">
         {CALCULATOR_BUTTONS.map((button) => (
