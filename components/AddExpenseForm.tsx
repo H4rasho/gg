@@ -1,6 +1,5 @@
 import { Pressable } from "react-native";
 import { Button } from "~/components/ui/button";
-import { useColorScheme } from "nativewind";
 import { Plus } from "~/lib/icons/Plus";
 import {
   Dialog,
@@ -19,7 +18,7 @@ import { ExpenseCategorySelect } from "./ExpenseCategorySelect";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Option } from "@rn-primitives/select";
 import { Category } from "~/types";
-import { cn } from "~/lib/utils";
+import { useColorScheme } from "nativewind";
 
 export function AddExpenseForm({
   onSubmit,
@@ -28,7 +27,6 @@ export function AddExpenseForm({
   onSubmit: (expense: any) => void;
   categories: Category[];
 }) {
-  const { colorScheme } = useColorScheme();
   const [displayValue, setDisplayValue] = useState("0");
   const [category, setCategory] = useState<Option>();
   const categoryOptions = categories.map((category) => ({
@@ -36,14 +34,16 @@ export function AddExpenseForm({
     value: category.id.toString(),
   }));
 
-  console.log({ colorScheme });
+  const { colorScheme } = useColorScheme();
+
+  console.log(colorScheme);
 
   return (
     <SafeAreaView>
       <Dialog>
         <DialogTrigger asChild>
-          <Pressable className="bg-black justify-center items-center size-20 rounded-full dark:bg-[#fff] ">
-            <Plus size={40} className="text-white dark:text-black"></Plus>
+          <Pressable className="bg-black  justify-center items-center w-20 h-20 rounded-full dark:bg-[#fff] ">
+            <Plus size={40} className="text-white dark:text-black" />
           </Pressable>
         </DialogTrigger>
         <DialogContent className="flex mx-2 my-14 px-7 sm:max-w-[325px]">
