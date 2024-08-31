@@ -18,7 +18,6 @@ import { ExpenseCategorySelect } from "./ExpenseCategorySelect";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Option } from "@rn-primitives/select";
 import { Category } from "~/types";
-import { useColorScheme } from "nativewind";
 
 export function AddExpenseForm({
   onSubmit,
@@ -27,16 +26,12 @@ export function AddExpenseForm({
   onSubmit: (expense: any) => void;
   categories: Category[];
 }) {
-  const [displayValue, setDisplayValue] = useState("0");
   const [category, setCategory] = useState<Option>();
   const categoryOptions = categories.map((category) => ({
     label: category.name,
     value: category.id.toString(),
   }));
-
-  const { colorScheme } = useColorScheme();
-
-  console.log(colorScheme);
+  const [displayValue, setDisplayValue] = useState<string>("0");
 
   return (
     <SafeAreaView>
