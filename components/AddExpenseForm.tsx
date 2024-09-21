@@ -15,7 +15,6 @@ import { Text } from "~/components/ui/text";
 import { Calculator } from "./Calculator";
 import { useState } from "react";
 import { ExpenseCategorySelect } from "./ExpenseCategorySelect";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { Option } from "@rn-primitives/select";
 import { Category } from "~/types";
 
@@ -34,36 +33,36 @@ export function AddExpenseForm({
   const [displayValue, setDisplayValue] = useState<string>("0");
 
   return (
-    <SafeAreaView>
-      <Dialog>
-        <DialogTrigger asChild>
-          <Pressable className="bg-black  justify-center items-center w-20 h-20 rounded-full dark:bg-[#fff] ">
-            <Plus size={40} className="text-white dark:text-black" />
-          </Pressable>
-        </DialogTrigger>
-        <DialogContent className="flex mx-2 my-14 px-7 sm:max-w-[325px]">
-          <DialogHeader className="flex-1">
-            <DialogTitle>Agregar gasto</DialogTitle>
-            <DialogDescription>
-              Puedes calcular el monto de tu gasto con la calculadora y luego
-              agregarlo
-            </DialogDescription>
-          </DialogHeader>
-          <Calculator
-            displayValue={displayValue}
-            setDisplayValue={setDisplayValue}
-          />
-          <ExpenseCategorySelect
-            value={category}
-            onChange={setCategory}
-            categoryOptions={categoryOptions}
-          />
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button variant="outline">
-                <Text>Cancel</Text>
-              </Button>
-            </DialogClose>
+    <Dialog>
+      <DialogTrigger asChild>
+        <Pressable className="bg-black  justify-center items-center w-20 h-20 rounded-full dark:bg-[#fff] ">
+          <Plus size={40} className="text-white dark:text-black" />
+        </Pressable>
+      </DialogTrigger>
+      <DialogContent className="flex mx-2 my-14 px-7 sm:max-w-[325px]">
+        <DialogHeader className="flex-1">
+          <DialogTitle>Agregar gasto</DialogTitle>
+          <DialogDescription>
+            Puedes calcular el monto de tu gasto con la calculadora y luego
+            agregarlo
+          </DialogDescription>
+        </DialogHeader>
+        <Calculator
+          displayValue={displayValue}
+          setDisplayValue={setDisplayValue}
+        />
+        <ExpenseCategorySelect
+          value={category}
+          onChange={setCategory}
+          categoryOptions={categoryOptions}
+        />
+        <DialogFooter>
+          <DialogClose asChild>
+            <Button variant="outline">
+              <Text>Cancel</Text>
+            </Button>
+          </DialogClose>
+          <DialogClose asChild>
             <Button
               onPress={() => {
                 onSubmit({
@@ -74,9 +73,9 @@ export function AddExpenseForm({
             >
               <Text>Save</Text>
             </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </SafeAreaView>
+          </DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }

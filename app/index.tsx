@@ -19,32 +19,12 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "~/components/ui/accordion";
-import { useSQLiteContext } from "expo-sqlite";
+import { useCategories } from "~/hooks/useCategories";
+import { useExpenses } from "~/hooks/useExpenses";
 
 export default function Screen() {
-  const db = useSQLiteContext();
-  const [expenses, setExpenses] = useState<Expense[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
-
-  useEffect(() => {
-    db.getAllAsync("SELECT * FROM expenses")
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
-
-  useEffect(() => {
-    db.getAllAsync<Category>("SELECT * FROM expense_categories")
-      .then((categoriesResult) => {
-        setCategories(categoriesResult);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
+  const { expenses, addExpense } = useExpenses();
+  const { categories } = useCategories();
 
   const balance = 453324;
   const initialBudget = 450000;
@@ -57,7 +37,7 @@ export default function Screen() {
   };
 
   const onExpenseAdd = (expense: Expense) => {
-    setExpenses([...expenses, expense]);
+    addExpense(expense);
   };
 
   return (
